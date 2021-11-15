@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "GUI",
-    "path": "GUI.yyp",
+    "name": "Manager",
+    "path": "folders/Scripts/GGUI/GGUI Base/Manager.yy",
   },
   "resourceVersion": "1.0",
-  "name": "GGUI_Contents",
+  "name": "GKeyboardManager",
   "tags": [],
   "resourceType": "GMScript",
 }

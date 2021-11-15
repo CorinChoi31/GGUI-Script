@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "GUI",
-    "path": "GUI.yyp",
+    "name": "GGUI Base",
+    "path": "folders/Scripts/GGUI/GGUI Base.yy",
   },
   "resourceVersion": "1.0",
-  "name": "GGUI_Base",
+  "name": "GSystem",
   "tags": [],
   "resourceType": "GMScript",
 }

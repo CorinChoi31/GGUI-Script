@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "GGUI",
-    "path": "folders/Scripts/GGUI.yy",
+    "name": "GPane",
+    "path": "folders/Scripts/GGUI/GGUI Base/GPane.yy",
   },
   "resourceVersion": "1.0",
-  "name": "GGUI",
+  "name": "GPane",
   "tags": [],
   "resourceType": "GMScript",
 }

@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "GGUI",
-    "path": "folders/Scripts/GGUI.yy",
+    "name": "GGUI Contents",
+    "path": "folders/Scripts/GGUI/GGUI Contents.yy",
   },
   "resourceVersion": "1.0",
-  "name": "GGUI",
+  "name": "GContent",
   "tags": [],
   "resourceType": "GMScript",
 }

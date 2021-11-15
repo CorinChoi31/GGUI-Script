@@ -1,2 +1,0 @@
-gdepth.step();
-gframe.step();

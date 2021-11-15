@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "GGUI",
-    "path": "folders/Scripts/GGUI.yy",
+    "name": "GContainer",
+    "path": "folders/Scripts/GGUI/GGUI Base/GContainer.yy",
   },
   "resourceVersion": "1.0",
-  "name": "GGUI",
+  "name": "GLabel",
   "tags": [],
   "resourceType": "GMScript",
 }
