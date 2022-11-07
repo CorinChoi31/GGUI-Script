@@ -1,55 +1,57 @@
-function GSystem() constructor
-{
-	/// funct GSystem()
-	/// descr 
-	/// param 
-	
-	global.__GGUI_SYSTEM = ptr(self);
-	
-	visible = false; //draw event
-	active = true; //step event
-	
-	//manager_time = new GTimeManager();
-	manager_screen = new GScreenManager();
-	manager_keyboard = new GKeyboardManager();
-	//manager_mouse = new GMouseManager(4, 0, 0);
-	//manager_depth = new GDepthManager();
-	
-	contents = ds_list_create();
-	
-	option_tick = 1;
-	
-	static begin_step = function()
-	{
-		manager_screen.option_tick = option_tick;
-		manager_keyboard.option_tick = option_tick;
-		
-		manager_screen.begin_step();
-	}
-	
-	static step = function()
-	{
-		manager_keyboard.step();
-		
-		var _active = (!manager_keyboard.keyboard_open);
-		
-		var _i = 0;
-		var _size = ds_list_size(contents);
-		repeat(_size)
-		{
-			contents[|_i].active = _active;
-			contents[|_i].option_tick = option_tick;
-			_i++;
-		}
-	}
-	
-	static draw = function()
-	{
-		manager_keyboard.draw();
-	}
-	
-	static addContent = function(_content)
-	{
-		ds_list_add(contents, _content);
-	}
+/**
+    @description GGUI > System 
+        GGUI의 전체를 관리하는 구조체입니다.
+        GSystem은 GGUI를 사용하기 전에 필수적으로 존재해야 합니다.
+        단일성(Singleton)을 보장합니다.
+        생성되면 global.__GGUI_SYSTEM에 보관됩니다.
+    
+    @constructor    
+    @returns        {Struct.GSystem}
+*/
+function GSystem() constructor {
+    
+    /** @type {Array.<Struct.GContainer>} */
+    contains = [];
+    
+    Initialize();
+    
+    static Initialize = function() {
+        if(global.__GGUI_SYSTEM == undefined) {
+            global.__GGUI_SYSTEM = self;
+        }
+        else {
+            delete global.__GGUI_SYSTEM;
+            global.__GGUI_SYSTEM = self;
+        }
+    }
+    
+    static Create = function() {
+        
+    }
+    
+    static Step = function() {
+        var _frame_speed_standard = 1/60 * 1000;
+        var _frame_speed_current = game_get_speed(gamespeed_microseconds)/1000;
+        var _frame_speed_ratio = _frame_speed_current/_frame_speed_standard;
+        
+        global.__GGUI_FRAMESPEED = _frame_speed_ratio;
+        
+        //show_debug_message("ggui_frame_fratio: " + string(_frame_speed_ratio));
+    }
+    
+    static Draw = function() {
+        
+    }
+    
+    static toString = function() {
+        return "";
+    }
+    
+    static AddContainer = function(_container) {
+        array_push(contains, _container);
+    }
+    
+    static RemoveContainer = function(_container) {
+        
+    }
 }

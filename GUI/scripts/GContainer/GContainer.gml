@@ -1,0 +1,3 @@
+function GContainer() constructor {
+
+}

@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "GSystem",
+  "name": "GCCSprite",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "GSystem",
-    "path": "folders/GGUI/GGUI Base/GSystem.yy",
+    "name": "GContent",
+    "path": "folders/GGUI/GGUI Base/GContainer/GContent.yy",
   },
 }

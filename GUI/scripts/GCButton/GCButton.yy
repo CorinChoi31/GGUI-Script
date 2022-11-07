@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "GSystem",
+  "name": "GCButton",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "GSystem",
-    "path": "folders/GGUI/GGUI Base/GSystem.yy",
+    "name": "GContainer",
+    "path": "folders/GGUI/GGUI Base/GContainer.yy",
   },
 }

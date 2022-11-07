@@ -1,0 +1,3 @@
+function GPSize() : GProperty() constructor {
+    
+}

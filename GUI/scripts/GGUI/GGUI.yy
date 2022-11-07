@@ -1,12 +1,11 @@
 {
+  "resourceType": "GMScript",
+  "resourceVersion": "1.0",
+  "name": "GGUI",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
     "name": "GGUI",
-    "path": "folders/Scripts/GGUI.yy",
+    "path": "folders/GGUI.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "GGUI",
-  "tags": [],
-  "resourceType": "GMScript",
 }

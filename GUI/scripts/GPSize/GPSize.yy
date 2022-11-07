@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "GSystem",
+  "name": "GPSize",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "GSystem",
-    "path": "folders/GGUI/GGUI Base/GSystem.yy",
+    "name": "GProperty",
+    "path": "folders/GGUI/GGUI Base/GContainer/GProperty.yy",
   },
 }

@@ -1,0 +1,3 @@
+function GMMouse() constructor {
+
+}

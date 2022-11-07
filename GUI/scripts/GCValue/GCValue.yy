@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "GSystem",
+  "name": "GCValue",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "GSystem",
-    "path": "folders/GGUI/GGUI Base/GSystem.yy",
+    "name": "GCValue",
+    "path": "folders/GGUI/GGUI Base/GContainer/GCValue.yy",
   },
 }

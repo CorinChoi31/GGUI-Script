@@ -1,153 +1,206 @@
-enum gFlag
-{
-    STRING = 0,
-    REAL,
-	BOOLEAN,
-	
-    SPRITE,
+// MACROS
+#macro __GGUI_VERSION "0.0.1"
+
+// ENUMS
+enum ggFLAG {
+    
+    CONTENT_STRING = 0, 
+    CONTENT_REAL, 
+    CONTENT_BOOLEAN, 
+    CONTENT_SPRITE, 
 }
 
-enum gColorType
-{
-	ALL = all,
-	RGB = 0,
-	HSV
+enum ggTYPE {
+    
+    COLOR_INCLUDE = -4,
+    COLOR_EXCLUDE = -1,
+    COLOR_ALL = all, 
+    COLOR_RGB = 0, 
+    COLOR_HSV,
+    
+    MOTION_INCLUDE = -4,
+    MOTION_EXCLUDE = -1,
+    MOTION_LINEAR = 0,
+    MOTION_SMOOTH,
+    MOTION_SPRING,
+    MOTION_LINEAR_SMOOTH,
+    
+    MOUSE_GUI = 0,
+    MOUSE_GAME = 1,
 }
 
-/*function gGUI()
-{
-	
-}
-*/
 
+// GLOBAL VARIABLES
 global.__GGUI_SYSTEM = undefined;
+global.__GGUI_PROPERTY = ds_map_create();
 
-function ggui_get_system()
-{
-	if(global.__GGUI_SYSTEM == undefined)
-	{
-		global.__GGUI_SYSTEM = new GSystem();	
-	}
-	
-	return global.__GGUI_SYSTEM;
+global.__GGUI_FRAMESPEED = 1;
+
+#region
+    var _frame_speed_standard = 1/60 * 1000;
+    var _frame_speed_current = game_get_speed(gamespeed_microseconds)/1000;
+    var _frame_speed_ratio = _frame_speed_current/_frame_speed_standard;
+    
+    global.__GGUI_FRAMESPEED = _frame_speed_ratio;
+    
+    // frame
+    
+    
+    // colors
+    global.__GGUI_PROPERTY[? "color-type"] = ggTYPE.COLOR_RGB;
+    
+    // motions
+    global.__GGUI_PROPERTY[? "motion-default"] = new GAMotion(ggTYPE.MOTION_SMOOTH, 1, 0.5, 0.25, 0.01);
+    
+    // mouse
+    global.__GGUI_PROPERTY[? "mouse-click-long"] = 60 / 2 * global.__GGUI_FRAMESPEED;
+#endregion
+
+
+
+// GLOBAL SCRIPTS
+function ggui_get_system() {
+    
+    if(global.__GGUI_SYSTEM == undefined) {
+        global.__GGUI_SYSTEM = new GSystem();
+    }
+    
+    return global.__GGUI_SYSTEM;
 }
 
-function ggui_color_decompile(_color, _type)
-{
-	/// @funct ggui_color_decompile(color, type)
-	/// @descr
-	/// @param {color} color
-	/// @param {gColorType} type
-	
-	var _result = 0;
-	switch(_type)
-	{
-		default:
-		case gColorType.ALL:
-			_result = [color_get_red(_color), color_get_green(_color), color_get_blue(_color), color_get_hue(_color), color_get_saturation(_color), color_get_value(_color)];
-			break;
-		case gColorType.RGB:
-			_result = [color_get_red(_color), color_get_green(_color), color_get_blue(_color)];
-			break;
-		case gColorType.HSV:
-			_result = [color_get_hue(_color), color_get_saturation(_color), color_get_value(_color)];
-			break;
-	}
-	return _result;
+function ggui_get_value_in_range(_value, _range) {
+    var _result = _value;
+    
+    if(_value < 0 or _value >= _range) {
+        var _q = floor(_value/_range);
+        _result = _value - _q * _range;
+    }
+    
+    return _result;
 }
 
-function ggui_color_compile(_color, _type)
-{
-	/// @funct ggui_color_compile(color, type)
-	/// @descr
-	/// @param {color} color
-	/// @param {gColorType} type
-	
-	var _result = 0;
-	switch(_type)
-	{
-		default:
-		case gColorType.RGB:
-			_result = make_color_rgb(_color[0], _color[1], _color[2]);
-			break;
-		case gColorType.HSV:
-			_result = make_color_hsv(_color[3], _color[4], _color[5]);
-			break;
-	}
-	return _result;
+function ggui_get_value_difference_in_range(_value_1, _value_2, _range) {
+    var _result = 0;
+    
+    _value_1 = ggui_get_value_in_range(_value_1, _range);
+    _value_2 = ggui_get_value_in_range(_value_2, _range);
+        
+    _result = _value_2 -_value_1;
+    if(_result > _range/2) {
+        _result = _result - _range;
+    }
+    if(_result < -_range/2) {
+        _result = _result + _range;
+    }
+    
+    return _result;
 }
 
-function ggui_color_lerp(_color, _target, _trace, _type, _array)
-{
-	/// @funct ggui_color_lerp(color, target, trace, type, array)
-	/// @descr
-	/// @param {color} color
-	/// @param {color} target
-	/// @param {real} trace
-	/// @param {gColorType} type
-	/// @param {color} array
-	
-	switch(_type)
-	{
-		default:
-		case gColorType.RGB:
-			_array[@ 0] = lerp(_array[0], color_get_red(_target), _trace);
-			_array[@ 1] = lerp(_array[1], color_get_green(_target), _trace);
-			_array[@ 2] = lerp(_array[2], color_get_blue(_target), _trace);
-			_color = ggui_color_compile(_array, _type);
-					
-			var _dec = ggui_color_decompile(_color, gColorType.HSV);
-			_array[@ 3] = _dec[0]; _array[@ 4] = _dec[1]; _array[@ 5] = _dec[2];
-			break;
-		case gColorType.HSV:
-			_array[@ 3] = lerp(_array[3], color_get_hue(_target), _trace);
-			_array[@ 4] = lerp(_array[4], color_get_saturation(_target), _trace);
-			_array[@ 5] = lerp(_array[5], color_get_value(_target), _trace);
-			_color = ggui_color_compile(_array, _type);
-					
-			var _dec = ggui_color_decompile(_color, gColorType.RGB);
-			_array[@ 0] = _dec[0]; _array[@ 1] = _dec[1]; _array[@ 2] = _dec[2];
-			break;
-	}
-	
-	return _color; 
+function ggui_check_in_range(_value, _range_1, _range_2) {
+    var _min = min(_range_1, _range_2);
+    var _max = max(_range_1, _range_2);
+    
+    var _result = false;
+    
+    if(_min <= _value and _value <= _max) {
+        _result = true;
+    }
+    
+    return _result;
 }
 
-function ggui_draw_rectangle(_x1, _y1, _x2, _y2, _c1, _c2, _c3, _c4, _a1, _a2, _a3, _a4, _outline)
-{
-	/// @funct ggui_draw_rectangle(x1, y1, x2, y2, color1, color2, color3, color4, alpha1, alpha2, alpha3, alpha4, outline)
-	/// @descr
-	/// @param {real} x1
-	/// @param {real} y1
-	/// @param {real} x2
-	/// @param {real} y2
-	/// @param {color} color1
-	/// @param {color} color2
-	/// @param {color} color3
-	/// @param {color} color4
-	/// @param {real} alpha1
-	/// @param {real} alpha2
-	/// @param {real} alpha3
-	/// @param {real} alpha4
-	/// @param {bool} outline
-	
-	if(_outline)
-	{
-		draw_primitive_begin(pr_linestrip);
-			draw_vertex_color(_x1, _y1, _c1, _a1);
-			draw_vertex_color(_x2, _y1, _c2, _a2);
-			draw_vertex_color(_x2, _y2, _c3, _a3);
-			draw_vertex_color(_x1, _y2, _c4, _a4);
-			draw_vertex_color(_x1, _y1, _c1, _a1);
-		draw_primitive_end();
-	}
-	else
-	{
-		draw_primitive_begin(pr_trianglestrip);
-			draw_vertex_color(_x1, _y1, _c1, _a1);
-			draw_vertex_color(_x1, _y2, _c4, _a4);
-			draw_vertex_color(_x2, _y1, _c2, _a2);
-			draw_vertex_color(_x2, _y2, _c3, _a3);
-		draw_primitive_end();
-	}
+function ggui_check_point_in_area(_px, _py, _area_center_x, _area_center_y, _area_points) {
+    var _area_length = array_length(_area_points);
+    
+    var _area_size = 0;
+    var _point_size = 0;
+    
+    var _edge_length = 0;
+    var _p1_length = 0; var _p2_length = 0;
+    var _s1 = 0; var _s2 = 0;
+    
+    var _i1 = 0; var _i2 = 0;
+    for(var _i = 0; _i < _area_length; _i += 1) {
+        _i1 = _i; _i2 = _i + 1;
+        if(_i2 == _area_length) {
+            _i2 = 0;
+        }
+        
+        _edge_length = point_distance(_area_points[_i1][0], _area_points[_i1][1], _area_points[_i2][0], _area_points[_i2][1]);
+        _p1_length = point_distance(_area_center_x, _area_center_y, _area_points[_i1][0], _area_points[_i1][1]);
+        _p2_length = point_distance(_area_center_x, _area_center_y, _area_points[_i2][0], _area_points[_i2][1]);
+        _s1 = (_edge_length + _p1_length + _p2_length) * 0.5;
+        _area_size += sqrt(max(_s1 * (_s1 - _edge_length) * (_s1 - _p1_length) * (_s1 - _p2_length), 1));
+        
+        _p1_length = point_distance(_px, _py, _area_points[_i1][0], _area_points[_i1][1]);
+        _p2_length = point_distance(_px, _py, _area_points[_i2][0], _area_points[_i2][1]);
+        _s2 = (_edge_length + _p1_length + _p2_length) * 0.5;
+        _point_size += sqrt(max(_s2 * (_s2 - _edge_length) * (_s2 - _p1_length) * (_s2 - _p2_length), 1));
+    }
+    
+    return abs(_area_size - _point_size) < 1;
+}
+
+function ggui_get_rectangle_points(_x, _y, _w, _h, _rotation) {
+    var _l = point_distance(0, 0, _w, _h);
+    
+    var _d1 = point_direction(0, 0, -_w, -_h);
+    var _r1 = _d1 + _rotation;
+    var _x1 = _x + lengthdir_x(_l, _r1);
+    var _y1 = _y +lengthdir_y(_l, _r1);
+    
+    var _d2 = point_direction(0, 0, _w, -_h);
+    var _r2 = _d2 + _rotation;
+    var _x2 = _x + lengthdir_x(_l, _r2);
+    var _y2 = _y +lengthdir_y(_l, _r2);
+    
+    var _d3 = point_direction(0, 0, _w, _h);
+    var _r3 = _d3 + _rotation;
+    var _x3 = _x + lengthdir_x(_l, _r3);
+    var _y3 = _y +lengthdir_y(_l, _r3);
+    
+    var _d4 = point_direction(0, 0, -_w, _h);
+    var _r4 = _d4 + _rotation;
+    var _x4 = _x + lengthdir_x(_l, _r4);
+    var _y4 = _y + lengthdir_y(_l, _r4);
+    
+    return [[_x1, _y1], [_x2, _y2], [_x3, _y3], [_x4, _y4]];
+}
+
+function ggui_draw_rectangle(_points, _color_tl, _color_tr, _color_br, _color_bl, _alpha_tl, _alpha_tr, _alpha_br, _alpha_bl, _outline) {
+    if(_outline) {
+        draw_primitive_begin(pr_linestrip);
+            draw_vertex_color(_points[0][0], _points[0][1], _color_tl, _alpha_tl);
+            draw_vertex_color(_points[1][0], _points[1][1], _color_tr, _alpha_tr);
+            draw_vertex_color(_points[2][0], _points[2][1], _color_br, _alpha_br);
+            draw_vertex_color(_points[3][0], _points[3][1], _color_bl, _alpha_bl);
+            draw_vertex_color(_points[0][0], _points[0][1], _color_tl, _alpha_tl);
+        draw_primitive_end();
+    }
+    else {
+        draw_primitive_begin(pr_trianglestrip);
+            draw_vertex_color(_points[0][0], _points[0][1], _color_tl, _alpha_tl);
+            draw_vertex_color(_points[1][0], _points[1][1], _color_tr, _alpha_tr);
+            draw_vertex_color(_points[3][0], _points[3][1], _color_bl, _alpha_bl);
+            draw_vertex_color(_points[2][0], _points[2][1], _color_br, _alpha_br);
+        draw_primitive_end();
+    }
+}
+
+function ggui_draw_rectangle_outline(_points_1, _points_2, _color_tl, _color_tr, _color_br, _color_bl, _alpha_tl, _alpha_tr, _alpha_br, _alpha_bl) {
+    draw_primitive_begin(pr_trianglestrip);
+        draw_vertex_color(_points_1[0][0], _points_1[0][1], _color_tl, _alpha_tl);
+            draw_vertex_color(_points_2[0][0], _points_2[0][1], _color_tl, _alpha_tl);
+        draw_vertex_color(_points_1[1][0], _points_1[1][1], _color_tr, _alpha_tr);
+            draw_vertex_color(_points_2[1][0], _points_2[1][1], _color_tr, _alpha_tr);
+        draw_vertex_color(_points_1[2][0], _points_1[2][1], _color_br, _alpha_br);
+            draw_vertex_color(_points_2[2][0], _points_2[2][1], _color_br, _alpha_br);
+        draw_vertex_color(_points_1[3][0], _points_1[3][1], _color_bl, _alpha_bl);
+            draw_vertex_color(_points_2[3][0], _points_2[3][1], _color_bl, _alpha_bl);
+            
+        draw_vertex_color(_points_1[0][0], _points_1[0][1], _color_tl, _alpha_tl);
+            draw_vertex_color(_points_2[0][0], _points_2[0][1], _color_tl, _alpha_tl);
+    draw_primitive_end();
+    
+    return _points_1;
 }
