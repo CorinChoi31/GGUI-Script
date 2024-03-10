@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "GCPanel",
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "GCPane",
-    "path": "folders/GGUI/GGUI Base/GContainer/GCPane.yy",
+  "$GMScript":"",
+  "%Name":"GCPanel",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"GCPanel",
+  "parent":{
+    "name":"GCPane",
+    "path":"folders/GGUI/GGUI Base/GContainer/GCPane.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

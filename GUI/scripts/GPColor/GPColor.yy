@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "GPColor",
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "GProperty",
-    "path": "folders/GGUI/GGUI Base/GContainer/GProperty.yy",
+  "$GMScript":"",
+  "%Name":"GPColor",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"GPColor",
+  "parent":{
+    "name":"GProperty",
+    "path":"folders/GGUI/GGUI Base/GContainer/GProperty.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

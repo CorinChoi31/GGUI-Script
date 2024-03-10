@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "GCVRealRange",
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "GCValue",
-    "path": "folders/GGUI/GGUI Base/GContainer/GCValue.yy",
+  "$GMScript":"",
+  "%Name":"GCVRealRange",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"GCVRealRange",
+  "parent":{
+    "name":"GCValue",
+    "path":"folders/GGUI/GGUI Base/GContainer/GCValue.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

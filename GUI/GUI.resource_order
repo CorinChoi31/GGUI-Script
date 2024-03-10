@@ -1,0 +1,22 @@
+{
+  "FolderOrderSettings":[],
+  "ResourceOrderSettings":[
+    {"name":"GCCSprite","order":3,"path":"scripts/GCCSprite/GCCSprite.yy",},
+    {"name":"GCCValue","order":5,"path":"scripts/GCCValue/GCCValue.yy",},
+    {"name":"GPSize","order":2,"path":"scripts/GPSize/GPSize.yy",},
+    {"name":"GCCString","order":4,"path":"scripts/GCCString/GCCString.yy",},
+    {"name":"GCVBool","order":1,"path":"scripts/GCVBool/GCVBool.yy",},
+    {"name":"GCVRealRange","order":3,"path":"scripts/GCVRealRange/GCVRealRange.yy",},
+    {"name":"GGUI","order":3,"path":"scripts/GGUI/GGUI.yy",},
+    {"name":"GContainer","order":8,"path":"scripts/GContainer/GContainer.yy",},
+    {"name":"GCVReal","order":2,"path":"scripts/GCVReal/GCVReal.yy",},
+    {"name":"GProperty","order":1,"path":"scripts/GProperty/GProperty.yy",},
+    {"name":"GCVString","order":4,"path":"scripts/GCVString/GCVString.yy",},
+    {"name":"GCLabel","order":7,"path":"scripts/GCLabel/GCLabel.yy",},
+    {"name":"GCContent","order":1,"path":"scripts/GCContent/GCContent.yy",},
+    {"name":"GCCReal","order":2,"path":"scripts/GCCReal/GCCReal.yy",},
+    {"name":"GArguments","order":5,"path":"scripts/GArguments/GArguments.yy",},
+    {"name":"GMMouse","order":1,"path":"scripts/GMMouse/GMMouse.yy",},
+    {"name":"GCButton","order":6,"path":"scripts/GCButton/GCButton.yy",},
+  ],
+}

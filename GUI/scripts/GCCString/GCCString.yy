@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "GCCString",
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "GContent",
-    "path": "folders/GGUI/GGUI Base/GContainer/GContent.yy",
+  "$GMScript":"",
+  "%Name":"GCCString",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"GCCString",
+  "parent":{
+    "name":"GContent",
+    "path":"folders/GGUI/GGUI Base/GContainer/GContent.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
